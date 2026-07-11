@@ -49,11 +49,12 @@ def analyze_token():
 
     print("\n========== DATA ==========")
 
-        print(f"Liquidity : ${score['liquidity']:,.2f}")
-    print(f"Volume 24H : ${score['volume']:,.2f}")
-    print(f"FDV : ${score['fdv']:,.2f}")
-    print(f"Change : {score['change']}%")
+    print("\n========== DATA ==========")
 
+print(f"Liquidity : ${score['liquidity']:,.2f}")
+print(f"Volume 24H : ${score['volume']:,.2f}")
+print(f"FDV : ${score['fdv']:,.2f}")
+print(f"Change : {score['change']}%")
     print("\n========== AI REASON ==========")
 
     for reason in score["reasons"]:
