@@ -3,6 +3,7 @@ from analysis.score import calculate
 from analysis.recommendation import get_recommendation
 from analysis.rugpull import check
 from analysis.momentum import analyze as momentum
+from analysis.final_score import build
 print("=" * 50)
 print("🚀 Xiarou Scanner AI")
 print("=" * 50)
@@ -65,3 +66,30 @@ Momentum Score : 82
 📈 Momentum 5m positif
 📈 Trend 24h bullish
 📈 Buyer mendominasi
+final = build(
+    result,
+    momentum_result,
+    rug
+)
+print("\n==============================")
+
+print("🚀 Xiarou Scanner AI")
+
+print("==============================")
+
+print(f"AI SCORE : {final['ai_score']}/100")
+
+print(f"SIGNAL : {final['signal']}")
+
+print(f"CONFIDENCE : {final['confidence']}%")
+
+print(f"RISK : {rug['risk_level']}")
+🚀 Xiarou Scanner AI
+
+AI SCORE : 91
+
+SIGNAL : 🟢 BUY
+
+CONFIDENCE : 91%
+
+RISK : LOW
