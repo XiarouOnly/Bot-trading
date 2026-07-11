@@ -2,6 +2,7 @@ from scanner.dexscreener import get_token
 from analysis.score import calculate
 from analysis.recommendation import get_recommendation
 from analysis.rugpull import check
+from analysis.momentum import analyze as momentum
 print("=" * 50)
 print("🚀 Xiarou Scanner AI")
 print("=" * 50)
@@ -50,3 +51,17 @@ for i in rug["reasons"]:
     print("❌", i)
     
 recommendation = get_recommendation(result["score"])
+momentum_result = momentum(pair)
+print("\n===== MOMENTUM =====")
+print("Momentum Score :", momentum_result["score"])
+
+for r in momentum_result["reasons"]:
+    print("📈", r)
+    ===== MOMENTUM =====
+
+Momentum Score : 82
+
+📈 Volume sangat tinggi
+📈 Momentum 5m positif
+📈 Trend 24h bullish
+📈 Buyer mendominasi
