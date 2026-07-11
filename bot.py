@@ -1,7 +1,6 @@
 from scanner.dexscreener import get_token
 
 from analysis.score import calculate
-from analysis.recommendation import get_recommendation
 from analysis.rugpull import check
 from analysis.momentum import analyze as momentum
 from analysis.final_score import build
@@ -27,7 +26,6 @@ def analyze_token():
 
     score = calculate(pair)
 
-    recommendation = get_recommendation(score["score"])
 
     rug = check(pair)
 
@@ -51,13 +49,10 @@ def analyze_token():
 
     print("\n========== DATA ==========")
 
-    print("Liquidity :", score["liquidity"])
-
-    print("Volume 24H :", score["volume"])
-
-    print("FDV :", score["fdv"])
-
-    print("Change :", score["change"])
+        print(f"Liquidity : ${score['liquidity']:,.2f}")
+    print(f"Volume 24H : ${score['volume']:,.2f}")
+    print(f"FDV : ${score['fdv']:,.2f}")
+    print(f"Change : {score['change']}%")
 
     print("\n========== AI REASON ==========")
 
