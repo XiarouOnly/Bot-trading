@@ -47,13 +47,13 @@ def analyze_token():
 
     print("RISK :", rug["risk_level"])
 
-        print("\n========== DATA ==========")
+    print("\n========== DATA ==========")
 
     print(f"Liquidity : ${score['liquidity']:,.2f}")
     print(f"Volume 24H : ${score['volume']:,.2f}")
     print(f"FDV : ${score['fdv']:,.2f}")
     print(f"Change : {score['change']}%")
-
+    
     print("\n========== AI REASON ==========")
 
     for reason in score["reasons"]:
