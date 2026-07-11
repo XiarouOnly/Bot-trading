@@ -1,7 +1,7 @@
 from scanner.dexscreener import get_token
 from analysis.score import calculate
 from analysis.recommendation import get_recommendation
-
+from analysis.rugpull import check
 print("=" * 50)
 print("🚀 Xiarou Scanner AI")
 print("=" * 50)
@@ -36,3 +36,17 @@ print("\n===== REASONS =====")
 
 for reason in result["reasons"]:
     print(f"✅ {reason}")
+    rug = check(pair)
+    print()
+
+print("===== RUGPULL =====")
+
+print("Risk :", rug["risk_level"])
+
+print("Score :", rug["risk_score"])
+
+for i in rug["reasons"]:
+
+    print("❌", i)
+    
+recommendation = get_recommendation(result["score"])
