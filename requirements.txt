@@ -1,0 +1,14 @@
+python-telegram-bot==21.7
+aiohttp
+httpx
+requests
+python-dotenv
+sqlalchemy
+aiosqlite
+loguru
+cachetools
+pandas
+numpy
+orjson
+websockets
+tenacity
