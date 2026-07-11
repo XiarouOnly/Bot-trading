@@ -1,95 +1,119 @@
 from scanner.dexscreener import get_token
+
 from analysis.score import calculate
 from analysis.recommendation import get_recommendation
 from analysis.rugpull import check
 from analysis.momentum import analyze as momentum
 from analysis.final_score import build
-print("=" * 50)
-print("🚀 Xiarou Scanner AI")
-print("=" * 50)
 
-address = input("Masukkan Token Address: ")
 
-pair = get_token(address)
+def analyze_token():
 
-if pair is None:
-    print("❌ Token tidak ditemukan.")
-    exit()
+    print("\n==============================")
+    print(" Xiarou Scanner AI")
+    print("==============================\n")
 
-result = calculate(pair)
+    address = input("Masukkan Token Address : ").strip()
 
-recommendation = get_recommendation(result["score"])
+    if address == "":
+        print("Token address kosong.")
+        return
 
-print("\n==============================")
+    pair = get_token(address)
 
-print(f"AI SCORE       : {result['score']}/100")
-print(f"SIGNAL         : {recommendation['signal']}")
-print(f"RISK           : {recommendation['risk']}")
-print(f"CONFIDENCE     : {recommendation['confidence']}%")
+    if pair is None:
+        print("Token tidak ditemukan.")
+        return
 
-print("\n===== DATA =====")
+    score = calculate(pair)
 
-print(f"Liquidity      : ${result['liquidity']:,}")
-print(f"Volume 24H     : ${result['volume']:,}")
-print(f"FDV            : ${result['fdv']:,}")
-print(f"Price Change   : {result['change']}%")
+    recommendation = get_recommendation(score["score"])
 
-print("\n===== REASONS =====")
-
-for reason in result["reasons"]:
-    print(f"✅ {reason}")
     rug = check(pair)
-    print()
 
-print("===== RUGPULL =====")
+    momentum_result = momentum(pair)
 
-print("Risk :", rug["risk_level"])
+    final = build(
+        score,
+        momentum_result,
+        rug
+    )
 
-print("Score :", rug["risk_score"])
+    print("\n==============================")
 
-for i in rug["reasons"]:
+    print("AI SCORE :", final["ai_score"])
 
-    print("❌", i)
-    
-recommendation = get_recommendation(result["score"])
-momentum_result = momentum(pair)
-print("\n===== MOMENTUM =====")
-print("Momentum Score :", momentum_result["score"])
+    print("SIGNAL :", final["signal"])
 
-for r in momentum_result["reasons"]:
-    print("📈", r)
-    ===== MOMENTUM =====
+    print("CONFIDENCE :", final["confidence"], "%")
 
-Momentum Score : 82
+    print("RISK :", rug["risk_level"])
 
-📈 Volume sangat tinggi
-📈 Momentum 5m positif
-📈 Trend 24h bullish
-📈 Buyer mendominasi
-final = build(
-    result,
-    momentum_result,
-    rug
-)
-print("\n==============================")
+    print("\n========== DATA ==========")
 
-print("🚀 Xiarou Scanner AI")
+    print("Liquidity :", score["liquidity"])
 
-print("==============================")
+    print("Volume 24H :", score["volume"])
 
-print(f"AI SCORE : {final['ai_score']}/100")
+    print("FDV :", score["fdv"])
 
-print(f"SIGNAL : {final['signal']}")
+    print("Change :", score["change"])
 
-print(f"CONFIDENCE : {final['confidence']}%")
+    print("\n========== AI REASON ==========")
 
-print(f"RISK : {rug['risk_level']}")
+    for reason in score["reasons"]:
+        print("✓", reason)
+
+    print("\n========== RUGPULL ==========")
+
+    print("Risk Score :", rug["risk_score"])
+
+    for reason in rug["reasons"]:
+        print("❌", reason)
+
+    print("\n========== MOMENTUM ==========")
+
+    print("Momentum Score :", momentum_result["score"])
+
+    for reason in momentum_result["reasons"]:
+        print("📈", reason)
+
+    print("\n==============================\n")
+
+
+def main():
+
+    while True:
+
+        print("""
+==============================
+
 🚀 Xiarou Scanner AI
 
-AI SCORE : 91
+1. Analyze Token
 
-SIGNAL : 🟢 BUY
+0. Exit
 
-CONFIDENCE : 91%
+==============================
+""")
 
-RISK : LOW
+        menu = input("Pilih : ").strip()
+
+        if menu == "1":
+
+            analyze_token()
+
+        elif menu == "0":
+
+            print("Bye.")
+
+            break
+
+        else:
+
+            print("Menu tidak tersedia.")
+
+
+if __name__ == "__main__":
+
+    main()
